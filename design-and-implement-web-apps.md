@@ -1,12 +1,7 @@
 #Design and Implement Web Apps
 
-##Deploy Web Apps
-  * Define deployment slots;
-  * roll back deployments; 
-  * implement pre and post deployment actions; create, configure and deploy a package;
-  * create App Service plans; 
-  * migrate Web Apps between App Service plans; 
-  * create a Web App within an App Service plan
+  * [Deploy Web Apps](DesignAndImplementWebApps/deploy-web-apps.md)
+
 
 ##Configure Web Apps
   * Define and use app settings, connection strings, handlers, and virtual directories;
