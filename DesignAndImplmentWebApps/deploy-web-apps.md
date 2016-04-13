@@ -19,11 +19,22 @@
   * Any errors are identified in production after a slot swap, roll the slots back to their pre-swap states by swapping
   * Some apps may require custom warm-up actions. The `applicationInitialization` configuration element in `web.config` allows you to specify custom initialization actions to be performed before 
   * Delete a deployment slot
+
   ```powershell
   Remove-AzureRmResource -ResourceGroupName [resource group name] -ResourceType Microsoft.Web/sites/slots –Name [web app name]/[slot name] -ApiVersion 2015-07-01
   ```
 
+  * Swap a deployment
+  ```bash
+  $ azure site swap webappslotstest
+  ```
+
 ## Implement pre and post deployment actions
+  * [Kudo](https://github.com/projectkudu/kudu/wiki) is the engine behind git deployments in Azure Web Apps
+  * Add an App Setting of `POST_DEPLOYMENT_ACTION` or `PRE_DEPLOYMENT_ACTION` and set the value to the patch of the .cmd, .ps1 or batch file to run after deployment
+  * Can have multiple scrips run by setting the `SCM_POST_DEPLOYMENT_ACTIONS_PATH` setting.  The default path is `site\deployments\tools\PostDeploymentActions`
+  * Can override the default deployment actions with having a `.deployment` files in root directory
+  * Can use custom deployment script generator/`.deployment` file by issueing `azure site deploymentscript [options]`
 
 ## Create, configure and deploy a package
 
