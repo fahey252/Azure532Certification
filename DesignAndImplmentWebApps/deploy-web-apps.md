@@ -55,7 +55,30 @@
   	- <https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-cloud-service-publish-set-up-required-services-in-visual-studio>
 
 ## Create App Service plans
+  * Options: Web Apps, Mobile Apps, Logic Apps or API Apps
+  * Pricing teirs: __Free, Shared, Basic, Standard and Premium__
+  * Both apps and plans are contained in a resource group.
+  * The ability to have multiple App Service plans in a single resource group allows you to __allocate different apps to different physical resources__. i.e. dev, test, production, different regions.
+  * For a new app, creating a new resource group, plan, and app is the right choice. For an existing application, add it to the existing resource group.
+  * If this new app is going to be resource intensive and have different scaling factors than the other apps hosted in an existing plan, it is recommended to isolate it into its own app service plan.
+  * If you want to create a new app in a different region, and that region doesn't have an existing plan, you will have to __create a new plan in that region to be able to host your app there__.
+  * App Service Plan, click + Create New, type the App Service plan name and select an appropriate __Location__. Click __Pricing__ tier and select an appropriate pricing tier for the service
+  * __The app service plan will determine the location, features, cost and compute resource for your app__. It is the container for your app.
+  * Links
+  	- <https://azure.microsoft.com/en-us/documentation/articles/azure-web-sites-web-hosting-plans-in-depth-overview/>
 
 ## Migrate Web Apps between App Service plans
+  * Having the capacity to move apps across plans also allows you to change the way resources are allocated across the bigger application.
+  * Apps can be moved between plans as long as the plans are in the __same resource group and geographical region.__
+  * To move an app to another plan, navigate to the app you want to move. In the settings menu look for __Change App Service Plan__.
+  * Can move or clone apps between plans. __Clone if you want to move the app to a different region.__  Clone App option is in the tools blade.
+  * Cloning and app has [limitations](https://azure.microsoft.com/en-us/documentation/articles/app-service-web-app-cloning-portal). Some are Traffic Manager settings, auto scale settings, App Insights and more. Cloning is only supported in __premium__ tier app service plans.  
+  * Content and certificates are cloned.  Some options such as app settings, connection strings, domains can be toggled to be cloned as well.
+  * 
 
 ## Create a Web App within an App Service plan
+  * TODO: finish reading links below.
+  * App Service plans represent a set of features and capacity that you can share across your apps. App Service plans give you the flexibility to allocate specific apps to a given set of resources and further optimize you Azure resource utilization. This way, if you want to save money on your testing environment you can share a plan across multiple apps. You can also maximize throughput for your production environment by scaling it across multiple regions and plans.
+  * Links
+  	- <https://azure.microsoft.com/en-us/documentation/articles/app-service-app-service-environment-intro>
+  	- <https://azure.microsoft.com/en-us/documentation/articles/app-service-web-how-to-create-a-web-app-in-an-ase/>
