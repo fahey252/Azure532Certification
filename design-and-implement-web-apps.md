@@ -1,13 +1,7 @@
 #Design and Implement Web Apps
 
   * [Deploy Web Apps](DesignAndImplementWebApps/deploy-web-apps.md)
-
-
-##Configure Web Apps
-  * Define and use app settings, connection strings, handlers, and virtual directories;
-  * configure certificates and custom domains;
-  * configure SSL bindings and runtime configurations;
-  * manage Web Apps by using the API, Azure PowerShell, and Xplat-CLI
+  * [Conifgure Web Apps](DesignAndImplementWebApps/configure-web-apps.md)
 
 ##Configure diagnostics, monitoring, and analytics
   * Retrieve diagnostics data

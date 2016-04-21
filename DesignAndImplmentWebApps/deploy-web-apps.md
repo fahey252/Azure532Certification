@@ -74,11 +74,11 @@
   * Can move or clone apps between plans. __Clone if you want to move the app to a different region.__  Clone App option is in the tools blade.
   * Cloning and app has [limitations](https://azure.microsoft.com/en-us/documentation/articles/app-service-web-app-cloning-portal). Some are Traffic Manager settings, auto scale settings, App Insights and more. Cloning is only supported in __premium__ tier app service plans.  
   * Content and certificates are cloned.  Some options such as app settings, connection strings, domains can be toggled to be cloned as well.
-  * 
 
 ## Create a Web App within an App Service plan
-  * TODO: finish reading links below.
+  * Use the UI. Select a subscription, resource group, app service plan... not much more to it.
   * App Service plans represent a set of features and capacity that you can share across your apps. App Service plans give you the flexibility to allocate specific apps to a given set of resources and further optimize you Azure resource utilization. This way, if you want to save money on your testing environment you can share a plan across multiple apps. You can also maximize throughput for your production environment by scaling it across multiple regions and plans.
+  * An App Service Environment is a Premium service plan option of Azure App Service that provides a fully isolated and dedicated environment. ASE's can have many app service plans. The URL of a web app in an ASE is: [sitename].[name of your App Service Environment].p.azurewebsites.net
+  * When you select pricing, the __price charged is applied to the App Service plan__ rather than to the individual apps
   * Links
   	- <https://azure.microsoft.com/en-us/documentation/articles/app-service-app-service-environment-intro>
-  	- <https://azure.microsoft.com/en-us/documentation/articles/app-service-web-how-to-create-a-web-app-in-an-ase/>
