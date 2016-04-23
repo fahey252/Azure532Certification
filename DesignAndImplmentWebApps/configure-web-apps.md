@@ -42,7 +42,14 @@
   	- <https://blogs.msdn.microsoft.com/tomholl/2014/09/21/deploying-multiple-virtual-directories-to-a-single-azure-website>
 
 ##Configure certificates and custom domains
-  * Must first add a custom domain before configuring for HTTPS. Then get a certificate, upgrade to __stanard/premium pricing tier to use SSL with a custom domain__.
+  * Must first add a custom domain before configuring for HTTPS (not available in the free pricing tier). Can buy one directly in the Azure Portal or use another domain registar.
+  * Get a domain, create a DNS record that maps the domain to the Azure App Service then add the domain in the Portal.  Can map the root domain, a subdomains or a wildcard to Azure.
+  * DNS has A Records (hostname to ip address) and CNAME's (domain mapped to another domain and uses the desitation domain to look up the IP address.).  Can use Azure DNS to host your DNS records for the app.
+  * If you create an A record to a root domain or subdomain, you will also need to create a CNAME for __awverify__ to __ awverify.\<yourwebappname\>.azurewebsites.net__ to so Azure can validate you own the domain.
+  * Cannot use CNAMEs in Azure until they have propagated.  Can not use A Records until *awverify* CNAME has been completed and verified.  Can check status of DNS propagation with <http://digwebinterface.com/>
+  * To add the custom domain to your App Service Portal > App > Settings > Custom Domains and SSL > __Bring External Doamins__ > Then enter the list of domains to associate with the app > Save.
+  * Custom domains can also be associated with Traffic Manager via *.trafficmanager.net.
+  * To get a certificate, upgrade to __stanard/premium pricing tier to use SSL with a custom domain__.  Certificates can be for a single domain, multiple specified domains (SNI) or via wildcards(* for multiple subdomains). Based on the Subject Alternative Name (SAN) field in the certifcate.
   * Certificate must be from a CA (certificate authority), have a private key, exportable to `.pfx` file (Personal Information Exchange), cert subject name match domain name, minimum 2048-bit encryption.  Can use self-signed certs for testing only.
   * Will need to __submit a Certificate Signing Request (CSR)__. Then generate a `.pfx` from the certificate recieved.
   * Create a certificate with Certreq.exe (creates CSR's), IIS Manager or OpenSSL.
@@ -114,8 +121,8 @@
   ```
 
   * Note: __Node.js, Python Django, and Java all actually do use a web.config when hosted on Azure App Service__. Azure creates the file automatically during deployment, so you never see it. If you include one as part of your application, it will override the one that Azure automatically generates.  Can get the file by downloading via FTP.
-
   * Links
+    - [Configure a custom domain name in Azure App Service](https://azure.microsoft.com/en-us/documentation/articles/web-sites-custom-domain-name/)
     - [Enable HTTPS for an app in Azure App Service](https://azure.microsoft.com/en-us/documentation/articles/web-sites-configure-ssl-certificate/)
 
 ##Configure SSL bindings and runtime configurations
