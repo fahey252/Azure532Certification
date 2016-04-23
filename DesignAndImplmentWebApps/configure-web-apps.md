@@ -126,5 +126,68 @@
     - [Enable HTTPS for an app in Azure App Service](https://azure.microsoft.com/en-us/documentation/articles/web-sites-configure-ssl-certificate/)
 
 ##Configure SSL bindings and runtime configurations
+  * SSL is available in all pricing tiers except Free.  Will need a custom domain and certificate added to the Portal before binding is enabled. 
+  * Once a new IP based certificate is added, the new VIP is assigned. Will need to update the DNS A record to point to the new IP.
+  * SNI binds are more expensive than IP based because they can use a shared IP address.
+  * Links
+    - [My SSL Certificate doesn’t work on Azure Websites](https://blogs.msdn.microsoft.com/waws/2014/12/01/my-ssl-certificate-doesnt-work-on-azure-websites/)
 
 ##Manage Web Apps by using the API, Azure PowerShell, and Xplat-CLI
+  * __Service Management API__ provides programmatic access to much of the functionality available through the Management Porta
+  * All resources are under a subscription ID. Thus, The subscription ID forms part of the URI for every call that you make to the Service Management API
+  * The name you give your storage account becomes the host name within the URI that you use to address Blob, Queue, or Table resources. i.e. `http://<storage-account-name.blob.core.windows.net/mycontainer`
+  * You can upload management certificates to the Azure certificate store for your subscription, using the Management Portal.
+  * An __affinity group__ ensures that your cloud services are located together in Azure data centers.
+  * You can use the Service Management API to create, list, delete, update, and get properties of an affinity group and locations within your subscription
+  * You can view subscription history for a specified timeframe by using the Service Management API.
+  * Azure PowerShell is a set of modules that provide cmdlets to manage Azure with Windows PowerShell.
+  ```powershell
+  # Install the Azure Resource Manager modules from the PowerShell Gallery
+  Install-Module AzureRM
+
+  # Install the Azure Service Management module from the PowerShell Gallery
+  Install-Module Azure
+  ```
+
+  * You can run the cmdlets from the standard __Windows PowerShell__ console, or from __PowerShell Integrated Scripting Environment__ (ISE) via `powershell_ise.exe.` from CMD.
+  * Some helpful commands:
+  ```powershell
+  # To make sure the Azure PowerShell module is available after you install
+  Get-Module –ListAvailable 
+
+  # To login to Azure Resource Manager
+  Login-AzureRmAccount
+
+  # You can also use a specific Tenant if you would like a faster login experience
+  # Login-AzureRmAccount -TenantId xxxx
+
+  # To view all subscriptions for your account
+  Get-AzureRmSubscription
+
+  # To select a default subscription for your current session
+  Get-AzureRmSubscription –SubscriptionName “your sub” | Select-AzureRmSubscription
+
+  # View your current Azure PowerShell session context
+  # This session state is only applicable to the current session and will not affect other sessions
+  Get-AzureRmContext
+
+  # To select the default storage context for your current session
+  Set-AzureRmCurrentStorageAccount –ResourceGroupName “your resource group” –StorageAccountName “your storage account name”
+
+  # View your current Azure PowerShell session context
+  # Note: the CurrentStorageAccount is now set in your session context
+  Get-AzureRmContext
+
+  # To login to organizational account
+  $cred = Get-Credential
+  Login-AzureRmAccount -Credential $cred
+  
+  ```
+
+  * Links
+    - [Service Management REST API Reference](https://msdn.microsoft.com/en-us/library/azure/ee460799.aspx)
+    - [Install the Azure CLI](https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install/)
+    - [How to install and configure Azure PowerShell](https://azure.microsoft.com/en-us/documentation/articles/powershell-install-configure/)
+
+
+
