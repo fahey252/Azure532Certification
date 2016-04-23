@@ -5,7 +5,7 @@ Training materials and notes as preparation for the [Microsoft Azure 532](https:
 ##Reading
 
 ###References
-  * <https://blogs.msdn.microsoft.com/christinematheney/2015/01/14/microsoft-exam-70-532-developing-microsoft-azure-solutions-test-resources/>
+  * [Christine Matheney's Outline Blog](https://blogs.msdn.microsoft.com/christinematheney/2015/01/14/microsoft-exam-70-532-developing-microsoft-azure-solutions-test-resources/)
   * [MVA for 532](https://mva.microsoft.com/en-US/training-courses/developing-microsoft-azure-solutions-8481?l=t1IIqvXz_6104984382)
 
 ###Books
