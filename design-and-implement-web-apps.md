@@ -3,11 +3,7 @@
   * [Deploy Web Apps](DesignAndImplementWebApps/deploy-web-apps.md)
   * [Conifgure Web Apps](DesignAndImplementWebApps/configure-web-apps.md)
   * [Configure diagnostics, monitoring, and analytics](DesignAndImplementWebApps/configure-telemetry.md)
-
-##Implement web jobs
-  * Write web jobs using the SDK,
-  * package and deploy web jobs, 
-  * schedule web jobs
+  * [Implement Web Jobs](DesignAndImplmentWebApps/implement-web-jobs.md)
 
 ##Configure Web Apps for scale and resilience
   * Configure auto-scale using built-in and custom schedules, 
