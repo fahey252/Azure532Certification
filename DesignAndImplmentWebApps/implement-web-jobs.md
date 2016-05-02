@@ -60,6 +60,4 @@
 
   * Scheduled WebJob (not for continuous WebJobs),creates an __Azure Scheduler job collection__ if one doesn't exist yet, and it creates a job in the collection _WebJobs-{regionname}_. Scheduler job is named {webappname}-_{webjobname}_.
   * If you configure a Recurring Job and set recurrence frequency to a number of minutes, the Azure Scheduler service is not free. Other frequencies (hours, days, and so forth) are free.
-  * 
-
 
