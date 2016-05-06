@@ -41,31 +41,49 @@
     - [Cloud Services Sizes](https://azure.microsoft.com/en-us/documentation/articles/cloud-services-sizes-specs)
 
 ##Configure Traffic Manager
-  * Traffic Manager is the __distribution of user traffic__. Increases apps __responsiveness/availability, cloud migration/hybrid on-premises, A/B testing, distribute traffic based on weighted values (based on geolocation)__.
-  * Traffic Manager is a popular option for on-premises scenarios including burst-to-cloud, migrate-to-cloud, and failover-to-cloud. Applies intelligent policy engine to Domain Name System (DNS) queries for the domain names of your Internet resources such as directing end-users to the endpoint with the lowest network latency from the client.
+  * Traffic Manager is the __distribution of user traffic__. Increases apps __responsiveness/availability, cloud migration/hybrid on-premises, A/B testing, distribute traffic based on weighted values (based on geolocation)__. Traffic Manager uses profiles that are based on __monitoring and routing__.
+  * Traffic Manager is a popular option for on-premises scenarios including burst-to-cloud, migrate-to-cloud, and failover-to-cloud. Applies intelligent policy engine to Domain Name System (DNS) queries for the domain names of your Internet resources such as directing end-users to the endpoint with the lowest network latency from the client. Traffic Manager receives an incoming __request from a client and locates the Traffic Manager profile__.
   * Zero downtime: wait for the endpoint to complete the servicing of existing connections. When there is no more traffic to the endpoint, you update the service on that endpoint and test it, then re-enable it.
   * Configure to determine which endpoint should service the request based on a DNS query. The DNS resource record for the __company domain points to a Traffic Manager domain name__ maintained in Azure Traffic Manager. This is achieved by using a CNAME resource record that maps the company domain name to the Traffic Manager domain name. i.e. __contoso.com IN CNAME contoso.trafficmanager.net__.
-  * Traffic Manager uses the specified traffic routing method and __monitoring status to determine which endpoint__ should service the request. Then  returns a CNAME record that maps the Traffic Manager domain name to the domain name of the endpoint. The user's DNS server resolves the endpoint domain name to its IP address and sends it to the user.
-  * User continues to interact with the chosen endpoint until its __local DNS cache entry expires for the duration of their Time-to-Live (TTL)__. TTL value controls how often the client’s local caching name server will query the Azure Traffic Manager DNS system for updated DNS entries.
+  * Traffic Manager uses the specified traffic __routing method and monitoring status to determine which endpoint__ should service the request. Then  returns a CNAME record that maps the Traffic Manager domain name to the domain name of the endpoint. The user's DNS server resolves the endpoint domain name to its IP address and sends it to the user.
+  * Weighting could be used to distribute a small percentage of traffic to a new or trial deployment for testing or customer feedback.
+  * User continues to interact with the chosen endpoint until its __local DNS cache entry expires for the duration of their Time-to-Live (TTL)__. TTL value controls how often the client’s local caching name server will query the Azure Traffic Manager DNS system for updated DNS entries. Default value of 300 seconds (5 minutes).
+  * When testing, you must either disable client-side DNS caching or clear the DNS cache between each attempt to ensure that a new DNS name query gets sent.
   * Seven steps to configure Traffic Manager
-    - __Deploy Endpoints__
-    - __Choose DNS name for Traffic Manager Profile__
-    - __Choose the monitoring conifguration__
+    1. __Deploy Endpoints__: Cloud services or websites
+    2. __Choose DNS name/prefix for Traffic Manager Profile__
+    3. __Choose the monitoring conifguration__
       + Wont route to endpoints that aren't available.
-    - __Choose load balancing method__
+    4. __Choose load balancing method__
       + Failover, performance, round robin.
-    - __Create Traffic Manager profile__
-    - __Test profile__
-    - __Point the domain name to the Traffic Manager Profile__
-  * Three routing method types:
-    - __Failover__: Automatically redirect traffic when failure detected
-    - __Performance__
-    - __Weighted Round Robin__ 
+    5. __Create Traffic Manager profile__
+    6. __Test profile__
+    7. __Point the domain name to the Traffic Manager Profile__
+  * Three routing method types. Each Traffic Manager profile can __only use one routing method at a time__.
+    - __Failover__: Automatically redirect traffic when __failure detected__ at primary endpoint(s), revert to secondary, go down the __ordered list__ of endpoints until one works.
+    - __Performance__: when have endpoints in different geographic regions, used the "closest" endpoint in terms of a __latency__. Traffic Manager locates the row in the _Internet Latency Table_ for the IP address of the incoming DNS request, resolves domain name to IP address of fastest route to the client.
+    - __Round Robin__: based on _weighted metrics or random_, __distribute load__ between geographic locations/regions.
+      + Gradual application upgrade: Allocate a percentage of traffic to route to a new endpoint, and gradually increase the traffic over time to 100%.
+      + Application migration to Azure: Create a profile with both Azure and external endpoints, and specify the weight of traffic that is routed to each endpoint.
+      + Cloud-bursting for additional capacity: Quickly expand an on-premises deployment into the cloud when you need extra capacity.
   * Can configure Traffic Manager settings using the Azure classic portal, with REST APIs, and with Windows PowerShell cmdlets. Some settings are not available using just one method. i.e. configuring external endpoints (type = ‘Any’) for Round Robin routing.
   * Can use __Quick Create__ in Azure Portal to create Traffic Manager profile.
+  * You can use periods to separate parts of your DNS prefix such as web.contoso.trafficmanager.net, bill.contoso.trafficmanager.net. Bad naming can make finding the correct endpoint, managing the profile difficult.
+  * All endpoints should be in the __same subscription__ where you are creating the profile. You can add endpoints from different subscriptions to a profile as __external endpoints__. External endpoints need to be manually removed.
+  * In order for monitoring to work correctly, you must set it up the same way for every endpoint that you specify in your Traffic Manager profile
+  * Endpoints in a __production environment only__ are available. You cannot direct to endpoints running in a staging environment.
+  * __Disable endpoints or profile for temporary changes__, rather than changing your configuration. Useful for temporarily removing an endpoint that is in maintenance mode or being redeployed.
+  * Can specify the name of another Traffic Manager profile as an endpoint, a practice known as __nested profiles__, child/parent relationship. The Traffic Manager profile name is its DNS name, such as contoso-usa.trafficmanager.net. i.e. top tier routing based on domain uses a the performance routing method which points to the best data center nested profile. The data center nested profile may then use the round robin traffic routing method and then return the appropirate DNS record.
+  * To disable a profile, change the DNS resource record on your Internet DNS server so that it no longer uses a CNAME resource record that points to the domain name of your Traffic Manager profile. Then disable the Traffic Manager profile in Azure.
+  * Before you delete a Traffic Manager profile, make sure a CNAME record isn't still pointing to it.
+  * Can view change history for profile. Management Services > Operation Logs.
+  * Taffic Manager CmdLets:  
+  `(Add|Disable|Enable|Get|New|Remove|Set)-AzureTrafficManagerEndpoint`, `(Set|Remove)-AzureTrafficManagerEndpoint)`, `Test-AzureTrafficManagerDomainName`
+  * Can run commands to get help:  
+  `Get-Help <cmdlet name> [-Detailed] [-Examples] [-Full]`
   * Links
     - [Traffic Manager](https://azure.microsoft.com/en-us/services/traffic-manager)
     - [What is Traffic Manager](https://azure.microsoft.com/en-us/documentation/articles/traffic-manager-overview)
-###Left off on Best Pratices
     - [Nested Profiles](https://azure.microsoft.com/en-us/blog/new-azure-traffic-manager-nested-profiles)
-    - [Manage an Azure Traffic Manager profile](https://azure.microsoft.com/en-us/documentation/articles/traffic-manager-manage-profiles/)
+    - [Manage an Azure Traffic Manager profile](https://azure.microsoft.com/en-us/documentation/articles/traffic-manager-manage-profiles)
+    - [Taffic Manager Routing Methods](https://azure.microsoft.com/en-us/documentation/articles/traffic-manager-routing-methods)
