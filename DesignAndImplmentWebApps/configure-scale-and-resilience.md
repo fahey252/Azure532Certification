@@ -35,10 +35,37 @@
   ...
   </WebRole>
   ```
-  
+
   * All machine sizes provide an application disk that stores all the files from your cloud service package; it is around 1.5 GB in size.
-  * 
   * Links
     - [Cloud Services Sizes](https://azure.microsoft.com/en-us/documentation/articles/cloud-services-sizes-specs)
 
 ##Configure Traffic Manager
+  * Traffic Manager is the __distribution of user traffic__. Increases apps __responsiveness/availability, cloud migration/hybrid on-premises, A/B testing, distribute traffic based on weighted values (based on geolocation)__.
+  * Traffic Manager is a popular option for on-premises scenarios including burst-to-cloud, migrate-to-cloud, and failover-to-cloud. Applies intelligent policy engine to Domain Name System (DNS) queries for the domain names of your Internet resources such as directing end-users to the endpoint with the lowest network latency from the client.
+  * Zero downtime: wait for the endpoint to complete the servicing of existing connections. When there is no more traffic to the endpoint, you update the service on that endpoint and test it, then re-enable it.
+  * Configure to determine which endpoint should service the request based on a DNS query. The DNS resource record for the __company domain points to a Traffic Manager domain name__ maintained in Azure Traffic Manager. This is achieved by using a CNAME resource record that maps the company domain name to the Traffic Manager domain name. i.e. __contoso.com IN CNAME contoso.trafficmanager.net__.
+  * Traffic Manager uses the specified traffic routing method and __monitoring status to determine which endpoint__ should service the request. Then  returns a CNAME record that maps the Traffic Manager domain name to the domain name of the endpoint. The user's DNS server resolves the endpoint domain name to its IP address and sends it to the user.
+  * User continues to interact with the chosen endpoint until its __local DNS cache entry expires for the duration of their Time-to-Live (TTL)__. TTL value controls how often the client’s local caching name server will query the Azure Traffic Manager DNS system for updated DNS entries.
+  * Seven steps to configure Traffic Manager
+    - __Deploy Endpoints__
+    - __Choose DNS name for Traffic Manager Profile__
+    - __Choose the monitoring conifguration__
+      + Wont route to endpoints that aren't available.
+    - __Choose load balancing method__
+      + Failover, performance, round robin.
+    - __Create Traffic Manager profile__
+    - __Test profile__
+    - __Point the domain name to the Traffic Manager Profile__
+  * Three routing method types:
+    - __Failover__: Automatically redirect traffic when failure detected
+    - __Performance__
+    - __Weighted Round Robin__ 
+  * Can configure Traffic Manager settings using the Azure classic portal, with REST APIs, and with Windows PowerShell cmdlets. Some settings are not available using just one method. i.e. configuring external endpoints (type = ‘Any’) for Round Robin routing.
+  * Can use __Quick Create__ in Azure Portal to create Traffic Manager profile.
+  * Links
+    - [Traffic Manager](https://azure.microsoft.com/en-us/services/traffic-manager)
+    - [What is Traffic Manager](https://azure.microsoft.com/en-us/documentation/articles/traffic-manager-overview)
+###Left off on Best Pratices
+    - [Nested Profiles](https://azure.microsoft.com/en-us/blog/new-azure-traffic-manager-nested-profiles)
+    - [Manage an Azure Traffic Manager profile](https://azure.microsoft.com/en-us/documentation/articles/traffic-manager-manage-profiles/)
