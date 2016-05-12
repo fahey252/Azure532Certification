@@ -58,7 +58,17 @@
     - [Using the Transient Fault Handling Application Block](https://msdn.microsoft.com/en-us/library/dn440719(v=pandp.60).aspx)
 
 ##Respond to throttling
-  * Links
+  * Know the limits, requirements of the service being used that is subject to throtling.
+  * Use a queue to store requests and competing instances that use the service.
+  * Queue can take in requests a variable rate and then output at a constance rate acting as a buffer.
+  * Throttling can be by: __Product, key-based, IP address, user identity.
+  * May be subject to __renewal periods__. i.e. 10 calls per hour, 1000 calls per month.
+    - `rate-limit-by-key` or `quota-by-key`
+  * Can determine the user by extracting the Authorization header, and use that as a rate throttling key.
+    - Can also introduce a custom header to allow the developer's client application to communicate the key to the API.
+  * Throttling by product subscription key, is a great way to monetize based on usage.
+  * Throttling can prevents one user's behavior from degrading the experience of another.
+  * 
 
 ##Disable Application Request Routing (ARR) affinity
   * Links
