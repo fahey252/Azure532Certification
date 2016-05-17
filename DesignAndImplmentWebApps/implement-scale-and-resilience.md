@@ -68,7 +68,28 @@
     - Can also introduce a custom header to allow the developer's client application to communicate the key to the API.
   * Throttling by product subscription key, is a great way to monetize based on usage.
   * Throttling can prevents one user's behavior from degrading the experience of another.
-  * 
 
 ##Disable Application Request Routing (ARR) affinity
+  * Application Request Routing IIS Extension to distribute your connecting users between your active instances.
+  * Givens connecting user an affinity cookie so next request takes them to same server that originally responded.
+  * Front end server recieves request, decides which instance to forward to and give __ARRAffinity__ cookie.
+  * To disable, all you have to do to disable affinity is __make sure that Azure doesn’t give the cookies out__. Subsequent requests by the user will be treated as “new”, and instead of trying to route them to “their” server, ARR will use its normal load-balancing behavior to route the request to the best server.
+    1. Disable in your __application__
+    ```c#
+    headers.Add("Arr-Disable-Session-Affinity", "True");
+    ```
+    2. `customHeaders` config in __web.config__
+    ```
+    <customHeaders>
+      <add name="Arr-Disable-Session-Affinity" value="true" />
+    </customHeaders>
+    ```
+  * With code based, can have cookie added in only certain sections of your website.
+  * ARR Affinity cookie is normally included with the 1st response from any Azure Web Sites web site, and subsequently included with any request sent from the client and response received from the server. Inspect with network profiles such as Fiddler, Developer tools. 
+  * If you see __both the cookie AND the disable header__, this means that __something is wrong__ with the way you set the header.
+  * ARR relies on the _URL rewrite module_ to inspect incoming HTTP requests to make the routing decisions.
   * Links
+    - [Disabling ARR’s Instance Affinity in Windows Azure Web Sites](https://azure.microsoft.com/en-us/blog/disabling-arrs-instance-affinity-in-windows-azure-web-sites/)
+
+
+
