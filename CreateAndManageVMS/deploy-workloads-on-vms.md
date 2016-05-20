@@ -55,5 +55,39 @@
   	- [Azure Resource Manager vs. classic deployment](https://azure.microsoft.com/en-us/documentation/articles/resource-manager-deployment-model/)
 
 #### Run workloads including Microsoft and Linux
+  * The Azure platform SLA applies to virtual machines running the Linux OS only when one of the endorsed distributions is used.
+  * The VHDX format is not supported in Azure, only __fixed VHD__
+  * All of the VHDs must have sizes that are multiples of 1 MB. Typically, VHDs created using Hyper-V should already be aligned correctly. 
+  * The __Azure Linux Agent (waagent)__ is required to properly provision a Linux virtual machine in Azure.
+  * Do not create swap space on the OS disk
+  * Links
+  	- [Information for Non-Endorsed Distributions](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-create-upload-generic/)
 
 #### Create VMs
+  * Quickly deploy a Linux Virtual Machine on Azure using the Azure CLI.
+  ```bash
+  $ azure config mode arm  # needs run at least once.
+  $ azure vm quick-create
+  # to attached your ssh key
+  $ azure vm quick-create -M ~/.ssh/azure_id_rsa.pub -Q CoreOS
+  ```
+
+  * Can use other distrobution aliases such as RHEL, Debian, UbuntuLTS
+  * Can SSH into your VM on the default SSH port 22 and the fully qualified domain name (FQDN)
+  ```bash
+  $ ssh ops@rhel-westu-1630678171-pip.westus.cloudapp.azure.com
+  ```
+
+  * __VM Agent__: provides an environment for extensions to be installed that can help with interacting or managing the virtual machine.
+  * To create a VM with Powershell, see link below as there are many steps. Outline of steps:
+  	1. Create a resource group
+  	2. Create a storage account
+  	  * needed to store the virtual hard disk that is used by the virtual machine
+  	3. Create a virtual network
+  	4. Create a public IP address and network interface
+  	5. Create a virtual machine
+  	6. You should see the resource group and all its resources in the Azure portal and a success status
+  * Links
+  	- [Create your first Windows virtual machine in the Azure portal](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-hero-tutorial/)
+  	- [Create a Linux VM on Azure using the CLI](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-quick-create-cli/)
+  	- [Create a Windows VM using Resource Manager and PowerShell](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-ps-create/)
