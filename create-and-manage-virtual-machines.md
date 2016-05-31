@@ -1,11 +1,8 @@
 ##Create and Manage Virtual Machines (20-25%)
 
-  * [Deploy workloads on Azure Virtual Machines (VMs)](deploy-workloads-on-vms.md)
-  * Create and manage a VM image or virtual hard disk
-    - Create specialized and reusable images; prepare images using SysPrep and Windows Agent (Linux); copy images between storage accounts and subscriptions; upload VMs
-    https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-ps-manage/
-
-
+  * [Deploy workloads on Azure Virtual Machines (VMs)](CreateAndManageVMS/deploy-workloads-on-vms.md)
+  * [Create and manage a VM image or virtual hard disk](CreateAndManageVMS/create-virtual-hard-disk.md)
+ 
   * Perform configuration management
     - Automate configuration management by using PowerShell Desired State Configuration and VM Agent (custom script extensions); configure VMs using a configuration management tool such as Puppet or Chef; enable remote debugging
   * Configure VM networking
