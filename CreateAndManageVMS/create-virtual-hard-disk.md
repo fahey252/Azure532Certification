@@ -75,15 +75,57 @@
   	- [How to capture a Windows virtual machine in the Resource Manager deployment model](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-capture-image/)
 
 ###Copy images between storage accounts and subscriptions
-  * Copy for doing backups, because your Windows Azure trial is ending, to get a copy of a client’s VM to investigate a problem
-  * You can only create a VM in the region where the image is stored. If you need it in other regions as well, you need to copy or recreate it there
+  * Copy for doing backups, because your Windows Azure trial is ending, to get a copy of a client’s VM to investigate a problem.
+  * You can only create a VM in the region where the image is stored. If you need it in other regions as well, you need to copy or recreate it there.
   ```bash
   $ azure vm disk upload <source-path> <target-blob-url> <target-storage-account-key>
   ```
 
   * Set the container with a __public access__ at the time of the transfer. You can use either the __primary or the secondary access key__.
+  * Ability to copy VHDs (or any other blob for that matter) is built natively into the Windows Azure platform through the __Blob Copy API__.
+  * Storage lives in various data centers throughout the world and within each data center WA Storage can be further divided into __multiple storage stamps__ (clusters of servers and disks). The location and stamp placement of your source and destination storage accounts matters greatly when using the blob copy operation. You can tell if storage accounts are in the same storage stamp if they share the same IP Address
+  ```powershell
+  $destContext = New-AzureStorageContext –StorageAccountName $storageAccount -StorageAccountKey $storageKey
+
+  New-AzureStorageContainer -Name $containerName -Context $destContext
+
+  blob1 = Start-AzureStorageBlobCopy -srcUri $srcUri -DestContainer $containerName -DestBlob "testcopy1.vhd" -DestContext $destContext
+
+  ### Retrieve the current status of the copy operation ###
+  $status = $blob1 | Get-AzureStorageBlobCopyState 
+  ```
+
+  * __AzCopy__ is a Windows command-line utility designed for copying data to and from Microsoft Azure Blob, File, and Table storage. AzCopy is not available for Mac/Linux OSs. (add to path: `%ProgramFiles(x86)%\Microsoft SDKs\Azure\AzCopy`)
+  * Can do all kinds of operations with AzCopy - download all files, upload files with pattern, modify files once uploaded etc.
+  ```powershell
+  AzCopy /Source:<source> /Dest:<destination> [Options]
+
+  # download a file:
+  AzCopy /Source:https://myaccount.blob.core.windows.net/mycontainer /Dest:C:\myfolder /SourceKey:key /Pattern:"abc.txt"
+
+  # Copy single blob across Storage accounts
+  AzCopy /Source:https://sourceaccount.blob.core.windows.net/mycontainer1 /Dest:https://destaccount.blob.core.windows.net/mycontainer2 /SourceKey:key1 /DestKey:key2 /Pattern:abc.txt
+
+  ```
+
   * Links
   	- [How to copy blobs or VHDs between different Windows Azure subscription](http://matricis.com/en/technical-article/how-to-copy-blobs-or-vhds-between-different-windows-azure-subscription/)
+  	- [Transfer data with the AzCopy Command-Line Utility](https://azure.microsoft.com/en-us/documentation/articles/storage-use-azcopy/)
 
 ###Upload VMs
-    
+  * HD size must be fixed and a whole number of megabytes, i.e. a number divisible by 8.
+  * Azure can accept images only for generation 1 virtual machines that are saved in the VHD file format. Convert VHDX's with Hyper-V or Convert-VHD PowerShell cmdlet.
+  * Run `Sysprep` or waagent to prepare the machine. Make sure you have a storage account setup.
+  * `Login-AzureRmAccount`. Make sure that you are using the right subscription by using `Set-AzureRmContext -SubscriptionId "xxxx-xxxx-xxxx-xxxx"`
+  * 
+  ```powershell
+  # VHD (classic)
+  Add-AzureVhd -Destination "<BlobStorageURL>/<YourImagesFolder>/<VHDName>.vhd" -LocalFilePath <PathToVHDFile>
+
+  # VHD Resource Manager
+  # Destination like: https://YourStorageAccountName.blob.core.windows.net
+  Add-AzureRmVhd -ResourceGroupName YourResourceGroup -Destination "<StorageAccountURL>/<BlobContainer>/<TargetVHDName>.vhd" -LocalFilePath <LocalPathOfVHDFile>
+
+  ```
+  * Links
+  	- [Upload a Windows VM image to Azure for Resource Manager deployments](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-upload-image/)
