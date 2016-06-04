@@ -10,3 +10,4 @@ Training materials and notes as preparation for the [Microsoft Azure 532](https:
 ###Books
   * [Fundamentals of Azure](https://blogs.msdn.microsoft.com/microsoft_press/2015/02/03/free-ebook-microsoft-azure-essentials-fundamentals-of-azure/) - Free eBook
   * [Building Cloud Apps with Microsoft Azure](https://blogs.msdn.microsoft.com/microsoft_press/2014/07/23/free-ebook-building-cloud-apps-with-microsoft-azure/) - Free eBook
+  * [Exam Ref 70-532 Developing Microsoft Azure Solutions](https://www.microsoftpressstore.com/store/exam-ref-70-532-developing-microsoft-azure-solutions-9780735697126) - Microsoft Press Book

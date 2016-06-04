@@ -3,9 +3,8 @@
   * [Deploy workloads on Azure Virtual Machines (VMs)](CreateAndManageVMS/deploy-workloads-on-vms.md)
   * [Create and manage a VM image or virtual hard disk](CreateAndManageVMS/create-virtual-hard-disk.md)
   * [Perform configuration management](CreateAndManageVMS/perform-configuration-management.md)
+  * [Configure VM networking](CreateAndManageVMS/configure-vm-networking.md)
 
-  * Configure VM networking
-    - Configure reserved IP addresses, Network Security Groups (NSG), DNS at the virtual network level, load balancing endpoints, HTTP and TCP health probes, public IPs, firewall rules, direct server return, and keep-alive
   * Scale VMs
 	- Scale up and scale down VM sizes; configure auto-scale and availability sets
   * Design and implement VM storage
