@@ -6,6 +6,4 @@
   * [Configure VM networking](CreateAndManageVMS/configure-vm-networking.md)
   * [Scale VMs](CreateAndManageVMS/scale-vms.md)
   * [Design and implement VM storage](CreateAndManageVMS/vm-storage.md)
-    
-  * Monitor VMs
-    - Configure endpoint monitoring;
+  * [Monitor VMs](CreateAndManageVMS/monitor-vms.md)
