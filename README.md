@@ -1,6 +1,6 @@
 #Azure 532 Certification
 
-Training materials and notes as preparation for the [Microsoft Azure 532](https://www.microsoft.com/en-us/learning/exam-70-532.aspx) exam - Developing Microsoft Azure Applications.  Framework was taking from Microsoft's 2016 announcment of the [exam objectives](http://download.microsoft.com/download/C/9/D/C9DB98B6-FDAC-44CE-B0F1-36E568CA4961/70-532_OD.pdf) 
+Training materials and notes as preparation for the [Microsoft Azure 532](https://www.microsoft.com/en-us/learning/exam-70-532.aspx) exam - Developing Microsoft Azure Applications.  Framework was taking from Microsoft's 2016 announcment of the [exam objectives](http://download.microsoft.com/download/C/9/D/C9DB98B6-FDAC-44CE-B0F1-36E568CA4961/70-532_OD.pdf). 
 
 ###References
   * [Christine Matheney's Outline Blog](https://blogs.msdn.microsoft.com/christinematheney/2015/01/14/microsoft-exam-70-532-developing-microsoft-azure-solutions-test-resources/)

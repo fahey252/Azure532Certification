@@ -5,10 +5,7 @@
   * [Perform configuration management](CreateAndManageVMS/perform-configuration-management.md)
   * [Configure VM networking](CreateAndManageVMS/configure-vm-networking.md)
   * [Scale VMs](CreateAndManageVMS/scale-vms.md)
-
-  * Design and implement VM storage
-    - Configure disk caching; plan for storage capacity; configure shared storage using Azure File service; configure geo-replication
-    https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-windows-attach-disk-portal/
+  * [Design and implement VM storage](CreateAndManageVMS/vm-storage.md)
     
   * Monitor VMs
     - Configure endpoint monitoring;
