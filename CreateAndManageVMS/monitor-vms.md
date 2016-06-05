@@ -12,7 +12,7 @@
   * __Add Rule, add condition, add threshold, choose period of time to compute the rule, choose notification method (email)__.
   * You can also setup Alerts to use metrics computed over an aggregate time period (i.e. 5 minutes).
   * For an alert rule on events, a __rule can send a notification on every event, or, only when a certain number of events happen__.
-  * Can configure __webhooks__ on your Alerts to route notifications to various channels
+  * Can configure __webhooks__ on your Alerts to route notifications to various channels.
 
 #### Configure diagnostic and monitoring storage location
   * VMs come installed with __Azure Virtual Machine Agent__, which installs and manages extensions running within your VM.
