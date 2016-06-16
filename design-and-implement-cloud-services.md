@@ -9,7 +9,4 @@
   * [Design and develop a cloud service](DesignAndImplementCloudServices/design-and-implement-a-cloud-service.md)
   * [Configure cloud services and roles](DesignAndImplementCloudServices/configure-cloud-services-and-roles.md)
   * [Deploy a Cloud Service](DesignAndImplementCloudServices/deploy-a-cloud-service.md)
-
-
-Monitor and debug a cloud service
-    Configure diagnostics using the SDK or configuration file; profile resource consumption; enable remote debugging; establish a connection using Remote Desktop cmdlets in Windows PowerShell Azure PowerShell; debug using IntelliTrace or the emulator
+  * [Monitor and Debug a Cloud Service](DesignAndImplementCloudServices/monitor-and-debug-a-cloud-service.md)
