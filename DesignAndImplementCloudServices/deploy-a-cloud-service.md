@@ -2,7 +2,9 @@
 
 #### Package a deployment
   * Includes all of the application and service model files needed to deploy and run an application. Deploy two files: the __application package file (\*.cspkg)__ and the __service configuration file (*.cscfg)__.
+  * .CSPKG contains the compiled code, dependent assemblies, and the _cloud service definition_ (.csdef).
   * You can also use the __CSPack command-line tool__ to create a package from the command line. Installed with the Azure SDK. CSPack uses the contents of the service definition file and service configuration file to define the contents of the package.
+  * Can use Visual Studio Online to publish upgrades. Can use Visual Studio/CSPack to package then upload to the portal.
 
   ```cmd
   > cd C:\Program Files\Microsoft SDKs\Azure\.NET SDK\[sdk-version]\bin\
@@ -17,7 +19,7 @@
       - __Incremental__: Minimal impact. Upgrading instances __one upgrade domain at time__. Stop, start, restarts instance. Once all instances in upgrade domain complete, move on to next upgrade domain. Increased availability but takes a __long time__. 5 upgrade domains by default, can be increased to 20. i.e. `<ServiceDefinition upgradeDomainCount="20">`
       - __Simultaneous__: Stop __all__ instances at once. Short amount of time, down time.
       - __Full Deployment__: does not attempt to upgrade the instances. Completely __removes all__ the existing instances and performs a __fresh deployment with the latest package__.
-  * Some changes can __not be done via upgrade, needs full deployment__/VIP swap: changing name of role, change upgrade domain count, reduction of local storage sizes.
+  * Some changes can __not be done via upgrade, needs full deployment__/VIP swap: changing name of role, change upgrade domain count, reduction of local storage sizes. Instance size can be changed and deployed as an upgrade.
   * Can deploy an upgrade from Visual Studio or by using the management portal.
   * Visual Studio: Publish Azure Application wizard > Signin/Settings > Deployment Upgrade > select rollout method (incremental) > Publish.
   * Portal: Solution Explorer > Package > Portal > Choose Service > Update > Choose the _.cspkg_ and _.cscfg_ from either your __local machine or a cloud storage account__. 
@@ -26,8 +28,11 @@
 
 #### VIP swap a deployment
   * Production: VIP and <dns-prefix>.cloudapp.net. Staging: different VIP and <Guid-ID>.cloudapp.net.
-  * Conduct a VIP swap operation to re-map the current production VIP and URL to the deployment currently running in the staging environment. Production IP address assigned to the VIP is always maintained.
+  * Conduct a VIP swap operation to re-map the current production VIP and URL to the deployment currently running in the staging environment. Production IP address assigned to the VIP is always maintained. 
+  * A VIP swap operation does not move role VM instances
+  * A VIP swap remaps both the VIP and the URL.
   * VIPs should swap quickly. Can delete staging slot once deployment is complete.
+  * Can swap staging to production and back and forth.
 
 #### Implement continuous deployment from Visual Studio Online (VSO)
   * Automatically build and deploy a cloud service upon check-in.
@@ -60,3 +65,16 @@
   * Other role events are: __Changed (per instance), Changing, SimultaneousChanging (all role instances at the same time.), SimultaneousChanged, Stopping, StatusCheck (regular interval audit)__. Notice there is no Stopped event...
 
 #### Configure regions and affinity groups
+  * __Region__ defines the physical, geographic location of your cloud service. Helpful for geo-political boundaries, where users are, proximity of dependent services, minimize cost of outgoing data (worker role with storage account.)
+  * __Affinity Groups__ describe a scale unit with data cente. Physically locate related services next to each other to __minimize the impact of network latency__
+  * Affinity groups are set at creatation time - limits you for resources added later.  Scale unit would define the max size of affinity group.
+  * Must create the affinity group first and then create your cloud service.
+  
+  ```powershell
+  New-AzureAffinityGroup -Location <RegionName> -Name <AffinityGroupName>
+  New-AzureService -Location <RegionName> -ServiceName <CloudServiceName>
+  New-AzureService -AffinityGroup <AffinityGroupName> -ServiceName <CloudServiceName>
+  ```
+  * __Cannot change the region or affinity group__ after the fact without __re-deploying__ to a new cloud service.
+  * Can create regions/affinity groups in Management Portal and assign them in Visual Studio. VS > Create New Cloud Service > choose existing region or affinity group.
+
