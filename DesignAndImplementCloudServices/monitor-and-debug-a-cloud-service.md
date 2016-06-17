@@ -1,6 +1,7 @@
 ### Monitor and Debug a Cloud Service
   * Logs and performance counter metrics. Can debug locally and remotely.
   * Can remote desktop to the machine to troubleshoot.
+  * Look at using monitoring (through the portal) and configuring alertsbased on __endpoint monitoring and host metrics__.
 
 #### Configure diagnostics using the SDK or configuration file
   * __Enabling the Azure Diagnostics__ module in your __service definition__, and then configuring the diagnostic data you want to collect.
@@ -19,6 +20,7 @@
   * After deployment, you can re-configure diagnostics within Visual Studio. Select Role > Update Diagnostics. The settings are applied __directly to the running role instead of within your local project__.
   * Can use the existing management portal to configure alerts on select metrics.
   * Can view some diagnostic data using Visual Studio or query storage account directly. VS > Server Explorer > Role > View Diagnostic Data. Can also use third-party tools such as Azure Management Studio.
+  * Can no longer configure cloud service diagnostics __programmatically (not supported as of Azure SDK 2.5,).__
 
 #### Profile resource consumption
   * Use Visual Studio (Ultimate or Premium) to determine which fuctions take the most time, features that are CPU or memory intensive and concurrency issues.
@@ -41,7 +43,8 @@
   * Pushlish Wizard > Build Configuration > Debug build. Advanced > __Enable Remote Debugger For All Roles check box.__ > Publish.
   * Server Explorer > Cloud Service > Choose role or instance __Attach Debugger__ > __Attach to Proccess__ > (for example, for a worker role attach to `WaWorkerHost.exe`)
   * Can attached the debugger to all instances in the a role or to an individual instance.
-  * When stopped at a breakpoint, you stop all incoming requests. Not a good idea for production. If at breakpoint for a few minutes, traffic is no longer directed to that instance. If you are stopped too long, the remote debugger service (__msvsmon.exe__) detaches from the process. 
+  * When stopped at a breakpoint, you stop all incoming requests. Not a good idea for production. If at breakpoint for a few minutes, traffic is no longer directed to that instance. If you are stopped too long, the remote debugger service (__msvsmon.exe__) detaches from the process.
+  * It is not possible to attach the debugger to an entire cloud service; a __role instance must be the target to attach to__.
 
 #### Establish a connection using Remote Desktop cmdlets in Windows PowerShell Azure PowerShell
   * Can enable RDP to get remote into a web or worker instance and debug within. __Can enable RDP when deploying or enable with Powershell/from the Portal after already deployed.__ Download RDP file from the Portal to connect.
@@ -68,3 +71,13 @@
   * Can view IntelliTrace logs after deployed using VS. Server Explorer > Cloud Services > role/instance > __View IntelliTrace Logs__ > VS downloads logs and displays summary. __Choose an event or exeception to set a point of reference__.
 
 #### Debug using the Emulator
+  * Azure Compute Emulator: run a cloud service locally, attach the debugger, and examine the cloud service configuration, roles, and instances.
+  * Default compute emulator: __Emulator Express__. Light-weight, IIS Express, one instance per role, does not require admin permissions to run. 
+  * Visual Studio > Properties > Local Development Server: IIS Express, Emulator: Emulator Express > F5 > Show Emulator from system tray.
+  * __Storage Emulator__ for tables, queues, blobs. Start from System tray if Compute Emulator is already running or find in Start menu.
+  * Configure application to use Storage Emulator (__Must be HTTP__. HTTPS not supported):
+    - Blob service: http://127.0.0.1:__10000__/<account-name>/<resource-path>
+    - Queue service: http://127.0.0.1:__10001__/<account-name>/<resource-path>
+    - Table service: http://127.0.0.1:__10002__/<account-name>/<resource-path>
+  * To set connection string: Server Explorer > Role > Properties > Settings > Connection String > __Create Storage Emulation Connection String__ > __Microsoft Azure Storage Emulator option__.
+
