@@ -86,6 +86,6 @@
   * 3 methods for partitioning. Can use several methods together at the same time.
     - __Horizontal (sharding)__: Each partition is its own data source with same schema. Spreads work accross many servers.
     - __Vertical__: Subset of fields, broken up columns - frequently accessed fields held together. Limits the amount of I/O, separate frequently changing data with constant data, separate credit card #'s, from secruity verification numbers.
-    - __Functional__:  Data aggregated based on how it is used in the system - i.e. purchasing held separatly from inventory, read-write data from read only data for reporting purposes.
+    - __Functional__:  Data aggregated based on how it is used in the system - i.e. customer data held separatly from inventory, read-write data from read only data for reporting purposes.
   * Links
     - [Data Partitioning Guidance](https://azure.microsoft.com/en-us/documentation/articles/best-practices-data-partitioning/)
