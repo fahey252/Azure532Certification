@@ -8,6 +8,7 @@
   * Links
       - [Storage Introduction](https://azure.microsoft.com/en-us/documentation/articles/storage-introduction/)
 
+### Sections
   * [Implement Azure Storage blobs and Azure Files](DesignAndImplementAStorageStrategy/implement-storage-blobs-and-files.md)
   * [Implement Azure storage tables](DesignAndImplementAStorageStrategy/implement-azure-storage-tables.md)
   * [Implement Azure storage queues](DesignAndImplementAStorageStrategy/implement-azure-storage-queues.md)
