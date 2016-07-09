@@ -53,15 +53,6 @@
 
 
 
-3. When should you create a VM on your virtual network? (Choose all that apply.) C
-A. Create the VM first, then create the virtual network, and then migrate it.
-B. Create the virtual network at the same time you create the VM.
-C. Create the virtual network first, and then create the VM.
-D. The order you create them in doesn’t matter.
-
-
-
-
 
 
 
