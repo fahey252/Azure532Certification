@@ -1,4 +1,5 @@
 ## Manage application and network services
+  * Infrastructure services for security, virtual networking, communication mechanisms to support many messaging patterns, and caching strategies.
 
 ### Sections
   * [Integrate an app with Azure Active Directory](ManageApplicationAndNetworkServices/integrate-an-app-with-azure-active-directory.md)
