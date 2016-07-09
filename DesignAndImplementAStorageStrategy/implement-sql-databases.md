@@ -63,7 +63,7 @@
   * Sharding works best when every transaction in an application __can be restricted to a single value of a sharding key__. That ensures that all transactions will be local to a specific database. i.e. day of week.
   * __Single tenant sharding pattern__: specific tenant ID value (or customer key value), application’s responsibility to route each request to the appropriate database.
   * __multi-tenant sharding pattern__: application manages large numbers of very small tenants, rows in the database tables are all designed to carry a key identifying the tenant ID or sharding key.
-  * Can m__ove data from multi-tenant to single tentant __i.e. shared trail to real customer. Use the __split-merge tool to move the data__ from the multi-tenant to the new single-tenant database.
+  * Can __move data from multi-tenant to single tentant __i.e. shared trail to real customer. Use the __split-merge tool to move the data__ from the multi-tenant to the new single-tenant database.
   * Links
     - [Scaling out with Azure SQL Database](https://azure.microsoft.com/en-us/documentation/articles/sql-database-elastic-scale-introduction/)
 

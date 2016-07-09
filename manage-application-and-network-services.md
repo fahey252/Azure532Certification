@@ -1,14 +1,9 @@
 ## Manage application and network services
 
-Integrate an app with Azure Active Directory
- Develop apps that use WS-federation, OAuth, and SAML-P endpoints; query the directory by using graph API
-Configure a virtual network
- Deploy a VM into a virtual network; deploy a cloud service into a virtual network
-Modify network configuration
- Modify a subnet; import and export network configuration
-Design and implement a communication strategy
- Develop messaging solutions using service bus queues, topics, relays, and notification hubs; create service bus namespaces and choose a tier; scale service bus
-Monitor communication
- Monitor service bus queues, topics, relays, and notification hubs
-Implement caching
- Implement Redis caching; implement migrate solutions from Azure Cache Service to use Redis caching
+### Sections
+  * [Integrate an app with Azure Active Directory](ManageApplicationAndNetworkServices/integrate-an-app-with-azure-active-directory.md)
+  * [Configure a virtual network](ManageApplicationAndNetworkServices/configure-a-virtual-network.md)
+  * [Modify network configuration](ManageApplicationAndNetworkServices/modify-network-configuration.md)
+  * [Design and implement a communication strategy](ManageApplicationAndNetworkServices/design-and-implement-a-communication-strategy.md)
+  * [Monitor communication](ManageApplicationAndNetworkServices/monitor-communication.md)
+  * [Implement caching](ManageApplicationAndNetworkServices/implement-caching.md)
