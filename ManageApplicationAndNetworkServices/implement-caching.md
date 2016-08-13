@@ -34,7 +34,9 @@
   ```
   * You can __add any non-primitive type__ to the cache when it is serialized (JSON and other formats).
   * Can use Redis Cache to back your ASP.NET session state for a fast, in-memory distributed session shared by multiple servers.
-
+  * The Azure Redis Cache __premium tier includes clustering, persistence, and virtual network support__.
+  * Redis persistence allows you to persist data stored in Redis to a storage account in case of hardware failure. Must choose a storage account in the same region as the cache.
+  * Backup frequencies: 15 Minutes, 30 minutes, 60 minutes, 6 hours, 12 hours, and 24 hours.
   * Links
     - [Redis Cache Configuration](https://azure.microsoft.com/en-us/documentation/articles/cache-configure/)
 
@@ -42,6 +44,8 @@
   * Service provides a secure cache that you can leverage from your cloud applications in a region of your choice.
   * No longer offered through the portal - supporting existing customers.
   * Azure Managed Cache Service __can only be created using Windows PowerShell__ cmdlets. You can then manage the cache settings from the management portal.
+  * Links
+    - [How to configure data persistence for a Premium Azure Redis Cache](https://azure.microsoft.com/en-gb/documentation/articles/cache-how-to-premium-persistence/)
 
 
 
