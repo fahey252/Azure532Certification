@@ -4,7 +4,7 @@
  * With Cloud Services, you don't create virtual machines. Instead, you provide a configuration file that tells Azure how many of each you'd like.
  * Unlike VMs created with Azure Virtual Machines, writes made to Cloud Services VMs aren't persistent; there's nothing like a Virtual Machines data disk.
  * Links
-   - (Should I choose cloud services or something else?)[https://azure.microsoft.com/en-us/documentation/articles/cloud-services-choose-me/]
+   - [Should I choose cloud services or something else?](https://azure.microsoft.com/en-us/documentation/articles/cloud-services-choose-me/)
 
 #### Install SDKs and install emulators
   * To design and develop cloud services, you need to __install the Azure SDK__. SDK installs many different items, including __emulators, tools, and APIs__ for several different Azure services.
@@ -31,7 +31,7 @@
   * Can later add the desired roles to the project using either new role templates or __by adding existing projects as roles__.
 
 #### Design and implement resiliency including transient fault handling
-  * Design your cloud services to support the potential for increases in server load. __Static Content Hosting pattern, Cache-Aside pattern, Health Endpoint Monitoring pattern, and many more cloud design patterns.
+  * Design your cloud services to support the potential for increases in server load. __Static Content Hosting pattern, Cache-Aside pattern, Health Endpoint Monitoring pattern, and many more cloud design patterns__.
   * Application logic that __accesses remote application services__ requires a form of __retry logic__ to recover from transient connectivity issues.
   * Can leverage the __Transient Fault Handling Application Block__ to assist with this type of implementation for __Azure Storage and Azure SQL Database__.
 
